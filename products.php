@@ -9,13 +9,11 @@
     $kunde = $_SESSION['kundeName'];
   }
   if(!empty($kunde)){
-    //echo $kunde;
-    $limit = 15;
-    $start = 0;
-    $page = 1;
+     require('rest-api-module.php');
+    per_page = 15;
+    $products = getProductsFromAPI($kunde);
+    $current_page = 1;
     require('products-module.php');
-  
-
   }else{
     header('Location: login.php');
   }
@@ -288,7 +286,7 @@
                     <div id="productsContent">
                       <?php 
                             /* aufruf der Funktion getProductsTable aus dem products-module.php */
-                            echo getProducsTable($kunde);
+                            echo getProductsTable($kunde);
                       ?>
                     </div>
                   </div>
