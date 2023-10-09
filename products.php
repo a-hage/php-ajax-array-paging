@@ -13,7 +13,7 @@
     $limit = 15;
     $start = 0;
     $page = 1;
-    require('productsModule.php');
+    require('products-module.php');
   
 
   }else{
@@ -287,7 +287,7 @@
                     </div>
                     <div id="productsContent">
                       <?php 
-                            /* aufruf der Funktion getProductTable aus dem productsModule.php */
+                            /* aufruf der Funktion getProductTable aus dem products-module.php */
                             echo getProducstTable($kunde);
                       ?>
                     </div>
@@ -299,12 +299,21 @@
         </div>
       </section>
       <section id="hidden-forms">
-        <form action="products-ajax.php" id="productsYearTable" method="POST">
-          <input type="hidden" name="function_nameY" id="function_nameY" value="getProductsYearTable" />
-          <input type="hidden" name="start" id="start" value="<?php echo $start;?>" />
-          <input type="hidden" name="limit" id="limit" value="<?php echo $limit;?>" />
-          <input type="hidden" name="page" id="page" value="<?php echo $page;?>" />
+        <form action="filter-products.php" id="allProductsTable" method="POST">
+          <input type="hidden" name="function_name" id="function_name" value="allProductsFilter" />
+          <input type="hidden" name="products_filter" id="products_filter" value="<?php echo $products_filter;?>" /> 
+          <input type="hidden" name="products" id="products" value="'.htmlspecialchars(serialize($products)).'" />
+          <input type="hidden" name="per_page" id="per_page" value="<?php echo $per_page;?>" />
+          <input type="hidden" name="current_page" id="current_page" value="<?php echo $current_page;?>" />
           <input type="hidden" name="kunde" id="kunde" value="<?php echo $kunde;?>" />
+        </form>
+	<form action="products-paging.php" id="allPagingTable" method="POST">
+          <input type="hidden" name="paging_function_name" id="paging_function_name" value="getAllProducts" />
+          <input type="hidden" name="paging_products_filter" id="paging_products_filter" value="<?php echo $products_filter;?>" /> 
+          <input type="hidden" name="paging_products" id="paging_products" value="'.htmlspecialchars(serialize($products)).'" />
+          <input type="hidden" name="paging_per_page" id="paging_per_page" value="<?php echo $per_page;?>" />
+          <input type="hidden" name="paging_current_page" id="paging_current_page" value="<?php echo $current_page;?>" />
+          <input type="hidden" name="paging_kunde" id="paging_kunde" value="<?php echo $kunde;?>" />
         </form>
       </section>
     </main><!-- End #main -->
