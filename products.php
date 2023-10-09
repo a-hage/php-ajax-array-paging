@@ -287,8 +287,8 @@
                     </div>
                     <div id="productsContent">
                       <?php 
-                            /* aufruf der Funktion getProductTable aus dem products-module.php */
-                            echo getProducstTable($kunde);
+                            /* aufruf der Funktion getProductsTable aus dem products-module.php */
+                            echo getProducsTable($kunde);
                       ?>
                     </div>
                   </div>
