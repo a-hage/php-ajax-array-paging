@@ -10,9 +10,11 @@
   }
   if(!empty($kunde)){
      require('rest-api-module.php');
-    per_page = 15;
+    $per_page = 100;
     $products = getProductsFromAPI($kunde);
+    $total = count($products);
     $current_page = 1;
+    $pages = ceil($total/$per_page);
     require('products-module.php');
   }else{
     header('Location: login.php');
@@ -283,6 +285,134 @@
                         <span class="loader"></span>
                       </div>
                     </div>
+		  <?php
+			$output = '';
+			    $output .= '<div class="row">';
+			        $output .= '<div class="col-md-6">';
+			            $output .= '<form id="product_page_filter" class="d-flex flex-row align-items-center flex-wrap">';
+			                $output .= '<select class="form-select" id="select_product_all">';
+			                $allOption = '';
+			                $allOption .= '<option value="all" selected>All</option>';
+			                $categoryOption = '';
+			                //echo count(products);
+			                for($k=0;$k<count($products);$k++){
+			                        $category = products[$k]->category;
+			                        $categoryOption .= '<option value="'.$category.'">'.$category.'</option>'; 
+			                }
+	                    $options = $allOption.$categoryOption;
+	                    $output .= $options;
+	                $output .= '</select>';
+	                $output .= '<label class="form-label perPage-label" for="select_per_page"> per Page </label>';
+	                $output .= '<select class="form-select" id="select_per_page">';
+	                    $output .= '<option value="25">25</option>';
+	                    $output .= '<option value="50">50</option>';
+	                    $output .= '<option value="75">75</option>';
+	                    $output .= '<option value="100" selected>100</option>';
+	                    $output .= '<option value="150">150</option>';
+	                    $output .= '<option value="200">200</option>';
+	                $output .= '</select>';
+	            $output .= '</form>';                
+	        $output .= '</div><!-- End 1. col-md-6 -->';
+	        $output .= '<div class="col-md-3"></div>';
+	        $output .= '<div class="col-md-3">';
+	            $output .= '<div class="pagination-container-one">';
+	            $output .= '<nav aria-label="Page navigation example">';
+	            if( $current_page > 1 && $current_page < $pages){
+	                $prevPage = $current_page -1;
+	                $nextPage = $current_page +1;
+	                //echo ' if Current > 1 and current < pages  ' .$current_page . ' ---- ' . $pages;
+	                $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
+	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'"  data-type="all">';
+	                        $output .= '<a class="page-link" aria-label="Previous">';
+	                            $output .= '<span aria-hidden="true">&laquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item page-active">';
+	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'"  data-type="all">';
+	                        $output .= '<a class="page-link" aria-label="Next">';
+	                            $output .= '<span aria-hidden="true">&raquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                $output .= '</ul>';
+	            }elseif($current_page == $pages && $pages > 1){
+	                //echo ' if Current == pages ' .$current_page . ' ---- ' . $pages;
+	                $prevPage = $current_page-1;
+	                $nextPage = $current_page +1;
+	                if($prevPage != 0){
+	                    $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
+	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'"  data-type="all">';
+	                        $output .= '<a class="page-link" aria-label="Previous">';
+	                            $output .= '<span aria-hidden="true">&laquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item page-active">';
+	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item disabled">';
+	                        $output .= '<a class="page-link" aria-label="Next">';
+	                            $output .= '<span aria-hidden="true">&raquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                $output .= '</ul>';
+	                }else{
+	                    //echo ' if Else Current == pages ' .$current_page . ' ---- ' . $pages;
+	                    $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
+	                    $output .= '<li class="page-item disabled">';
+	                        $output .= '<a class="page-link" aria-label="Previous">';
+	                            $output .= '<span aria-hidden="true">&laquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item page-active">';
+	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item disabled">';
+	                        $output .= '<a class="page-link" aria-label="Next">';
+	                            $output .= '<span aria-hidden="true">&raquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                $output .= '</ul>';
+	                }
+	                
+	            }elseif($current_page == 1){
+	                $nextPage = $current_page +1;
+	                //echo ' if Current == 1 and current < pages  ' .$current_page . ' ---- ' . $pages;
+	                $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
+	                    $output .= '<li class="page-item disabled">';
+	                        $output .= '<a class="page-link" aria-label="Previous">';
+	                            $output .= '<span aria-hidden="true">&laquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item page-active">';
+	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
+	                    $output .= '</li>';
+	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'" data-type="all">';
+	                        $output .= '<a class="page-link" aria-label="Next">';
+	                            $output .= '<span aria-hidden="true">&raquo;</span>';
+	                        $output .= '</a>';
+	                    $output .= '</li>';
+	                $output .= '</ul>';
+	            }
+	        
+	            $output .= '</nav>';
+	        $output .= '</div><!-- End 1. pagination-container-->';
+	        $output .= '<div class="pagination-container-two">';
+	            $output .= '<nav aria-label="Page navigation example">';
+	            $output .= '<ul class="pagination justify-content-center" id="aPaginateTwo" style="--bs-pagination-bg: none;">';
+	                $output .= '<li class="page-item page-active">';
+	                $output .= '<a class="page-link" style="border:0px;">';
+	                    $output .= '<span id="currentPage">'.$current_page.'</span><span> von </span><span id="total_page">'.$pages.'</span>';
+	                $output .= '</a>';
+	                $output .= '</li>';
+	            $output .= '</ul>';
+	            $output .= '</nav>';
+	        $output .= '</div><!-- End 2. pagination-container-->';
+	    $output .= '</div><!-- End 1. Row -->';
+	    $output .= '<!-- End Pagination with icons -->';
+	    $output .= '<div class="row mb-2"></div>';
+		echo $output;
+		?>
                     <div id="productsContent">
                       <?php 
                             /* aufruf der Funktion getProductsTable aus dem products-module.php */
