@@ -322,7 +322,7 @@
 	                $nextPage = $current_page +1;
 	                //echo ' if Current > 1 and current < pages  ' .$current_page . ' ---- ' . $pages;
 	                $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
-	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'"  data-type="all">';
+	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'">';
 	                        $output .= '<a class="page-link" aria-label="Previous">';
 	                            $output .= '<span aria-hidden="true">&laquo;</span>';
 	                        $output .= '</a>';
@@ -330,7 +330,7 @@
 	                    $output .= '<li class="page-item page-active">';
 	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
 	                    $output .= '</li>';
-	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'"  data-type="all">';
+	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'">';
 	                        $output .= '<a class="page-link" aria-label="Next">';
 	                            $output .= '<span aria-hidden="true">&raquo;</span>';
 	                        $output .= '</a>';
@@ -342,7 +342,7 @@
 	                $nextPage = $current_page +1;
 	                if($prevPage != 0){
 	                    $output .= '<ul class="pagination justify-content-end" id="aPaginate">';
-	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'"  data-type="all">';
+	                    $output .= '<li class="page-item prev-page" id="'.$prevPage.'">';
 	                        $output .= '<a class="page-link" aria-label="Previous">';
 	                            $output .= '<span aria-hidden="true">&laquo;</span>';
 	                        $output .= '</a>';
@@ -387,7 +387,7 @@
 	                    $output .= '<li class="page-item page-active">';
 	                        $output .= '<a class="page-link"><span>'.$current_page.'</span></a>';
 	                    $output .= '</li>';
-	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'" data-type="all">';
+	                    $output .= '<li class="page-item next-page" id="'.$nextPage.'">';
 	                        $output .= '<a class="page-link" aria-label="Next">';
 	                            $output .= '<span aria-hidden="true">&raquo;</span>';
 	                        $output .= '</a>';
