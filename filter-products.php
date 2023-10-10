@@ -66,12 +66,12 @@ function allProductsFilter($product_filter, $products, $per_page, $current_page,
     }else{
         $filterProducts = array();
         for($k=0;$k<count($products);$k++){
-            if($products[$k]->extensions->category == $product_filter){
-                $products_filter= getProductsByFilter($kunde, $products[$k]->extensions->category);
+            if($products[$k]->category == $product_filter){
+                $products_filter= getProductsByFilter($kunde, $products[$k]->category);
                 $productsValue = $products_filter->value;
                 $maxP = count($productsValue);
                 for($i=0;$i<$maxP;$i++){
-                    if($productsValue[$i]->extensions->category_state == 0){
+                    if($productsValue[$i]->category != ''){
                         array_push($filterProducts, $productsValue[$i]); 
                     }
                 }
@@ -85,6 +85,9 @@ function allProductsFilter($product_filter, $products, $per_page, $current_page,
         $offset = ($current_page*$per_page) - $per_page;
         $filterProducts = array_slice($filterProducts, $offset, $per_page);
         // echo "Total ".$total ." --->  per Page ".$per_page. " ---> PAGES OF NOT ALL ". $pages;
+	
+	$configPage = getConfig_Page($kunde);
+        $product_Column = $configPage->products;
         $output = '';
          $output .= '<form action="filter-products.php" id="allProductsTable" method="POST">';
            $output .= '<input type="hidden" name="function_name" id="function_name" value="allProductsFilter" />';
