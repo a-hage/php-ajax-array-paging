@@ -24,7 +24,7 @@ function allProductsFilter($product_filter, $products, $per_page, $current_page,
            $output .= '<input type="hidden" name="current_page" id="current_page" value="<?php echo $current_page;?>" />';
            $output .= '<input type="hidden" name="kunde" id="kunde" value="<?php echo $kunde;?>" />';
          $output .= '</form>';
-	       $output .= '<form action="products-paging.php" id="allPagingTable" method="POST">';
+	 $output .= '<form action="products-paging.php" id="allPagingTable" method="POST">';
            $output .= '<input type="hidden" name="paging_function_name" id="paging_function_name" value="getAllProducts" />';
            $output .= '<input type="hidden" name="paging_products_filter" id="paging_products_filter" value="<?php echo $products_filter;?>" /> ';
            $output .= '<input type="hidden" name="paging_products" id="paging_products" value="'.htmlspecialchars(serialize($products)).'" />';
